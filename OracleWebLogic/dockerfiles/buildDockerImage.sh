@@ -48,10 +48,11 @@ validateJDK() {
 checksumPackages() {
   echo "Checking if required packages are present and valid..."
   md5sum -c Checksum.$DISTRIBUTION
-  if [ "$?" -ne 0 ]; then
+  ret=$?
+  if [ "$ret" -ne 0 ]; then
     echo "MD5 for required packages to build this image did not match!"
     echo "Make sure to download missing files in folder $VERSION. See *.download files for more information"
-    exit $?
+    exit $ret
   fi
 }
 

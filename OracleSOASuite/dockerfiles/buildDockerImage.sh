@@ -59,16 +59,17 @@ checksumPackages() {
   echo "INFO: Checking if required packages are valid..."
 
   md5sum --quiet -c install/soasuite.download 2> /dev/null
-  if [ "$?" -ne 0 ]; then
+  ret=$?
+  if [ "$ret" -ne 0 ]; then
     cat <<EOF
 
-ERROR: MD5 for required packages to build the ${VERSION} 
+ERROR: MD5 for required packages to build the ${VERSION}
        image did not match. Please make sure to download
        or check the files in the ${VERSION} folder.
 EOF
     cat install/soasuite.download
     echo " "
-    exit $?
+    exit $ret
   fi
 }
 

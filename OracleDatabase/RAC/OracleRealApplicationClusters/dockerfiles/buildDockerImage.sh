@@ -34,10 +34,11 @@ checksumPackages() {
   if hash md5sum 2>/dev/null; then
     echo "Checking if required packages are present and valid..."
     md5sum -c Checksum
-    if [ "$?" -ne 0 ]; then
+    ret=$?
+    if [ "$ret" -ne 0 ]; then
       echo "MD5 for required packages to build this image did not match!"
       echo "Make sure to download missing files in folder $VERSION."
-      exit $?
+      exit "$ret"
     fi
   else
     echo "Ignored MD5 sum, 'md5sum' command not available.";

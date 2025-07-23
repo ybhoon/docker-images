@@ -74,10 +74,11 @@ checksumPackages() {
     MD5CMD="docker run -it --rm -v$(pwd):/md5dir oracle/serverjre:8 sh -c cd /md5dir; ${MD5CMD}"
   fi
   $MD5CMD
-  if [ "$?" -ne 0 ]; then
+  ret=$?
+  if [ "$ret" -ne 0 ]; then
     echo "MD5 for required packages to build this image did not match!"
     echo "Make sure to download missing files in folder $VERSION. See *.download files for more information"
-    exit $?
+    exit $ret
   fi
 }
 # Go into version folder
